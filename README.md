@@ -1,4 +1,4 @@
-# terraform code for Azure log analytics workspace
+# terraform code for Azure KV
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements

@@ -100,3 +100,22 @@ variable "certificate_permissions" {
   default     = ["Get", "List"]
   description = "List of certificate permissions for the access policy (if RBAC is not enabled). Valid values include 'Get', 'List', 'Create', 'Delete', 'Update', etc."
 }
+
+###
+variable "custom_role_enabled" {
+  description = "Set to true to enable custom role assignment to Key Vault"
+  type        = bool
+  default     = true
+}
+
+variable "custom_role_definition_id" {
+  description = "The ID of the custom role definition"
+  type        = string
+  default     = ""
+}
+
+variable "custom_role_principal_id" {
+  description = "The object ID of the principal (user/group/service principal) to assign the role to"
+  type        = string
+  default     = ""
+}

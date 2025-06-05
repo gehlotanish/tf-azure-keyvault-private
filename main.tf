@@ -59,3 +59,11 @@ resource "azurerm_monitor_diagnostic_setting" "keyvault_diag" {
     enabled  = true
   }
 }
+
+resource "azurerm_role_assignment" "keyvault_custom_role" {
+  count                            = var.custom_role_enabled ? 1 : 0
+  scope                            = azurerm_key_vault.main.id
+  role_definition_id               = var.custom_role_definition_id
+  principal_id                     = var.custom_role_principal_id
+  skip_service_principal_aad_check = true
+}

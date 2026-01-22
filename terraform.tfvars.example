@@ -1,0 +1,46 @@
+# Required Variables
+resource_group_name              = "rg-keyvault-prod"
+log_analytics_resource_group_name = "rg-monitoring"
+log_analytics_workspace_name     = "law-keyvault-logs"
+
+# Key Vaults Configuration
+# Each Key Vault requires: name and location
+# All other parameters are optional with sensible defaults
+keyvaults = {
+  kv1 = {
+    name     = "kv-prod-app-001"
+    location = "eastus"
+    # Optional: sku = "standard" (default) or "premium"
+    # Optional: soft_delete_retention_days = 90 (default)
+    # Optional: purge_protection = false (default)
+    # Optional: public_network_access_enabled = true (default)
+    # Optional: enable_rbac_authorization = false (default)
+    # Optional: environment = "production" (default)
+    # Optional: diag_enabled = false (default)
+  }
+
+  kv2 = {
+    name                          = "kv-prod-secrets-002"
+    location                      = "westus"
+    sku                           = "premium"
+    purge_protection              = true
+    enable_rbac_authorization     = true
+    diag_enabled                  = true
+    keyvault_extra_tags = {
+      "Project" = "Production"
+      "Owner"   = "security-team"
+    }
+  }
+
+  # Example with Private Endpoint
+  kv3 = {
+    name                         = "kv-prod-private-003"
+    location                     = "eastus"
+    public_network_access_enabled = false
+    private_endpoint = {
+      enabled             = true
+      subnet_id           = "/subscriptions/SUB_ID/resourceGroups/rg-network/providers/Microsoft.Network/virtualNetworks/vnet-prod/subnets/subnet-private-endpoints"
+      private_dns_zone_id = "/subscriptions/SUB_ID/resourceGroups/rg-dns/providers/Microsoft.Network/privateDnsZones/privatelink.vaultcore.azure.net"
+    }
+  }
+}
